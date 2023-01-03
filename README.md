@@ -24,4 +24,4 @@ pip install -r requirements.txt
 
 Запуск тестов осуществляется консольной командой
 
-python -m pytest -v --driver Chrome --driver-path <Путь до вебдрайвера>\chromedriver.exe autotests_rostelecom.py.
+python -m pytest -v --driver Chrome --driver-path <Путь до вебдрайвера>\chromedriver.exe autotests_rostelecom.py
