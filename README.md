@@ -4,8 +4,9 @@
 
 Установка всех необходимых библиотек производится консольной командой
 
+```bash
 pip install -r requirements.txt
-
+```
 
 В файл settings находятся данные для авторизации
 
@@ -24,4 +25,6 @@ pip install -r requirements.txt
 
 Запуск тестов осуществляется консольной командой
 
+```bash
 python -m pytest -v --driver Chrome --driver-path <Путь до вебдрайвера>\chromedriver.exe autotests_rostelecom.py
+```
