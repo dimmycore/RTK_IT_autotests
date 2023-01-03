@@ -3,6 +3,7 @@
 Проект выполнен с использованием PageObject, Selenium и PyTest
 
 Установка всех необходимых библиотек производится консольной командой
+
 pip install -r requirements.txt
 
 
@@ -22,4 +23,5 @@ pip install -r requirements.txt
 В файле conftest.py находятся фикстуры по дополнительным настройкам.
 
 Запуск тестов осуществляется консольной командой
+
 python -m pytest -v --driver Chrome --driver-path <Путь до вебдрайвера>\chromedriver.exe autotests_rostelecom.py.
