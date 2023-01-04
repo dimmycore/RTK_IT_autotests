@@ -87,8 +87,8 @@ def test_auth_by_login_symbol_negative(selenium):
     assert page.find_el('xpath', '//*[@id="page-right"]/div/div/p').text == 'Неверный логин или пароль'
 
 
+# тест 8 - авторизация пользователя с использованием кириллицы в поле ввода логин/пароль
 def test_auth_by_login_kirill_negative(selenium):
-    # Авторизация пользователя с использованием кириллицы в поле ввода логин/пароль
     page = AuthPage(selenium)
     page.enter_username(KirillData.login)
     page.enter_pass(KirillData.password)
@@ -98,8 +98,8 @@ def test_auth_by_login_kirill_negative(selenium):
     assert page.find_el('xpath', '//*[@id="page-right"]/div/div/p').text == 'Неверный логин или пароль'
 
 
+# тест 9 - проверка ввода в поля логина и пароля строки длиной >2500 символов
 def test_auth_with_maxlens_negative(selenium):
-    #Проверка ввода в поля логина и пароля строки длиной >2500 символов
     page = AuthPage(selenium)
     page.enter_username(BIGData.login*500)
     page.enter_pass(BIGData.password*500)
@@ -108,8 +108,8 @@ def test_auth_with_maxlens_negative(selenium):
     assert page.find_el(*internal_error_message_text).text == 'Internal Server Error'
 
 
+# тест 10 - проверка автозамены типа авторизации при вводе определенного типа данных (телефон, почта, логин)
 def test_placeholder(selenium):
-    #Проверка автозамены типа авторизации при вводе определенного типа данных (телефон, почта, логин)
     page = AuthPage(selenium)
     page.enter_username(AuthEmail.email)
     page.enter_pass('anypass')
