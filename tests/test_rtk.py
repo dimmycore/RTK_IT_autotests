@@ -1,10 +1,11 @@
+import pytest
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import ActionChains
 from pages.auth_page import AuthPage
 from pages.elements import *
 from settings import *
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import pytest
-from selenium.webdriver import ActionChains
+
 
 @pytest.fixture
 def chrome_options(chrome_options):
@@ -12,8 +13,8 @@ def chrome_options(chrome_options):
     return chrome_options
 
 
+# тест 1 - авторизация пользователя с валидным email и паролем
 def test_auth_by_email_positive(selenium):
-    #Авторизация пользователя с валидным email и паролем
     page = AuthPage(selenium)
     page.enter_username(AuthEmail.email)
     page.enter_pass(AuthEmail.password)
@@ -22,8 +23,8 @@ def test_auth_by_email_positive(selenium):
     assert page.get_relative_link() == '/account_b2c/page'
 
 
+# тест 2 - авторизация пользователя с невалидным сочетанием email/пароль
 def test_auth_by_email_negative(selenium):
-    #Авторизация пользователя с невалидным сочетанием email/пароль
     page = AuthPage(selenium)
     page.enter_username(AuthEmail.email)
     page.enter_pass(InvalidData.password)
@@ -33,8 +34,8 @@ def test_auth_by_email_negative(selenium):
     assert page.find_el(*wrong_log_pass_message).text == 'Неверный логин или пароль'
 
 
+# тест 3 - авторизация пользователя с валидным номером телефона и паролем
 def test_auth_by_phonenumber_positive(selenium):
-    #Авторизация пользователя с валидным номером телефона и паролем
     page = AuthPage(selenium)
     page.enter_username(AuthPhone.phone)
     page.enter_pass(AuthPhone.password)
@@ -43,8 +44,8 @@ def test_auth_by_phonenumber_positive(selenium):
     assert page.get_relative_link() == '/account_b2c/page'
 
 
+# тест 4 - авторизация пользователя с невалидным телефоном/паролем
 def test_auth_by_phonenumber_negative(selenium):
-    #Авторизация пользователя с невалидным телефоном/паролем
     page = AuthPage(selenium)
     page.enter_username(AuthPhone.phone)
     page.enter_pass(InvalidData.password)
@@ -54,8 +55,8 @@ def test_auth_by_phonenumber_negative(selenium):
     assert page.find_el('xpath', '//*[@id="page-right"]/div/div/p').text == 'Неверный логин или пароль'
 
 
+# тест 5 - авторизация пользователя с невалидным сочетанием логин/пароль    
 def test_auth_by_login_negative(selenium):
-    #Авторизация пользователя с невалидным сочетанием логин/пароль
     page = AuthPage(selenium)
     page.enter_username(InvalidData.login)
     page.enter_pass(InvalidData.password)
@@ -65,8 +66,8 @@ def test_auth_by_login_negative(selenium):
     assert page.find_el('xpath', '//*[@id="page-right"]/div/div/p').text == 'Неверный логин или пароль'
 
 
+# тест 6 - авторизация пользователя с валидным сочетанием логин/пароль
 def test_auth_by_login_positive(selenium):
-    # Авторизация пользователя с валидным сочетанием логин/пароль
     page = AuthPage(selenium)
     page.enter_username(AuthLogin.login)
     page.enter_pass(AuthLogin.password)
@@ -75,8 +76,8 @@ def test_auth_by_login_positive(selenium):
     assert page.get_relative_link() == '/account_b2c/page'
 
 
+# тест 7 - авторизация пользователя с использованием спецсимволов в поле ввода логин/пароль   
 def test_auth_by_login_symbol_negative(selenium):
-    # Авторизация пользователя с использованием спецсимволов в поле ввода логин/пароль
     page = AuthPage(selenium)
     page.enter_username(SymbolData.login)
     page.enter_pass(SymbolData.password)
