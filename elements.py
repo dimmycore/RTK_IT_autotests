@@ -22,7 +22,6 @@ class WebElement(object):
             self._locator = (str(attr).replace('_', ' '), str(kwargs.get(attr)))
 
     def find(self, timeout=5):
-        """ Find element on the page. """
 
         element = None
 
@@ -31,12 +30,11 @@ class WebElement(object):
                EC.presence_of_element_located(self._locator)
             )
         except:
-            print(colored('Element not found on the page!', 'red'))
+            print(colored('element not found on the page', 'red'))
 
         return element
 
     def wait_to_be_clickable(self, timeout=5, check_visibility=True):
-        """ Wait until the element will be ready for click. """
 
         element = None
 
@@ -45,7 +43,7 @@ class WebElement(object):
                 EC.element_to_be_clickable(self._locator)
             )
         except:
-            print(colored('Element not clickable!', 'red'))
+            print(colored('element not clickable', 'red'))
 
         if check_visibility:
             self.wait_until_not_visible()
@@ -53,19 +51,16 @@ class WebElement(object):
         return element
 
     def is_clickable(self):
-        """ Check is element ready for click or not. """
 
         element = self.wait_to_be_clickable(timeout=0.5)
         return element is not None
 
     def is_presented(self):
-        """ Check that element is presented on the page. """
 
         element = self.find(timeout=0.5)
         return element is not None
 
     def is_visible(self):
-        """ Check is the element visible or not. """
 
         element = self.find(timeout=0.5)
 
@@ -83,7 +78,7 @@ class WebElement(object):
                 EC.visibility_of_element_located(self._locator)
             )
         except:
-            print(colored('Element not visible!', 'red'))
+            print(colored('element not visible', 'red'))
 
         if element:
             js = ('return (!(arguments[0].offsetParent === null) && '
@@ -104,7 +99,6 @@ class WebElement(object):
         return element
 
     def send_keys(self, keys, wait=2):
-        """ Send keys to the element. """
 
         keys = keys.replace('\n', '\ue007')
 
@@ -116,11 +110,10 @@ class WebElement(object):
             element.send_keys(keys)
             time.sleep(wait)
         else:
-            msg = 'Element with locator {0} not found'
+            msg = 'element with locator {0} not found'
             raise AttributeError(msg.format(self._locator))
 
     def get_text(self):
-        """ Get text of the element. """
 
         element = self.find()
         text = ''
@@ -133,7 +126,6 @@ class WebElement(object):
         return text
 
     def get_attribute(self, attr_name):
-        """ Get attribute of the element. """
 
         element = self.find()
 
@@ -141,7 +133,6 @@ class WebElement(object):
             return element.get_attribute(attr_name)
 
     def _set_value(self, web_driver, value, clear=True):
-        """ Set value to the input element. """
 
         element = self.find()
 
@@ -151,7 +142,6 @@ class WebElement(object):
         element.send_keys(value)
 
     def click(self, hold_seconds=0, x_offset=1, y_offset=1):
-        """ Wait and click the element. """
 
         element = self.wait_to_be_clickable()
 
@@ -160,14 +150,13 @@ class WebElement(object):
             action.move_to_element_with_offset(element, x_offset, y_offset).\
                 pause(hold_seconds).click(on_element=element).perform()
         else:
-            msg = 'Element with locator {0} not found'
+            msg = 'element with locator {0} not found'
             raise AttributeError(msg.format(self._locator))
 
         if self._wait_after_click:
             self._page.wait_page_loaded()
 
     def right_mouse_click(self, x_offset=0, y_offset=0, hold_seconds=0):
-        """ Click right mouse button on the element. """
 
         element = self.wait_to_be_clickable()
 
@@ -176,40 +165,29 @@ class WebElement(object):
             action.move_to_element_with_offset(element, x_offset, y_offset). \
                 pause(hold_seconds).context_click(on_element=element).perform()
         else:
-            msg = 'Element with locator {0} not found'
+            msg = 'element with locator {0} not found'
             raise AttributeError(msg.format(self._locator))
 
     def highlight_and_make_screenshot(self, file_name='element.png'):
-        """ Highlight element and make the screen-shot of all page. """
 
         element = self.find()
 
-        # Scroll page to the element:
         self._web_driver.execute_script("arguments[0].scrollIntoView();", element)
 
-        # Add red border to the style:
         self._web_driver.execute_script("arguments[0].style.border='3px solid red'", element)
 
-        # Make screen-shot of the page:
         self._web_driver.save_screenshot(file_name)
 
     def scroll_to_element(self):
-        """ Scroll page to the element. """
 
         element = self.find()
 
-        # Scroll page to the element:
-        # Option #1 to scroll to element:
-        # self._web_driver.execute_script("arguments[0].scrollIntoView();", element)
-
-        # Option #2 to scroll to element:
         try:
             element.send_keys(Keys.DOWN)
         except Exception as e:
-            pass  # Just ignore the error if we can't send the keys to the element
+            pass 
 
     def delete(self):
-        """ Deletes element from the page. """
 
         element = self.find()
 
@@ -220,13 +198,11 @@ class WebElement(object):
 class ManyWebElements(WebElement):
 
     def __getitem__(self, item):
-        """ Get list of elements and try to return required element. """
 
         elements = self.find()
         return elements[item]
 
     def find(self, timeout=10):
-        """ Find elements on the page. """
 
         elements = []
 
@@ -235,26 +211,23 @@ class ManyWebElements(WebElement):
                EC.presence_of_all_elements_located(self._locator)
             )
         except:
-            print(colored('Elements not found on the page!', 'red'))
+            print(colored('elements not found on the page', 'red'))
 
         return elements
 
     def _set_value(self, web_driver, value):
-        """ Note: this action is not applicable for the list of elements. """
-        raise NotImplemented('This action is not applicable for the list of elements')
+        raise NotImplemented('this action is not applicable for the list of elements')
 
     def click(self, hold_seconds=0, x_offset=0, y_offset=0):
         """ Note: this action is not applicable for the list of elements. """
-        raise NotImplemented('This action is not applicable for the list of elements')
+        raise NotImplemented('this action is not applicable for the list of elements')
 
     def count(self):
-        """ Get count of elements. """
 
         elements = self.find()
         return len(elements)
 
     def get_text(self):
-        """ Get text of elements. """
 
         elements = self.find()
         result = []
@@ -272,7 +245,6 @@ class ManyWebElements(WebElement):
         return result
 
     def get_attribute(self, attr_name):
-        """ Get attribute of all elements. """
 
         results = []
         elements = self.find()
@@ -283,8 +255,7 @@ class ManyWebElements(WebElement):
         return results
 
     def highlight_and_make_screenshot(self, file_name='element.png'):
-        """ Highlight elements and make the screenshot of all page. """
-
+        
         elements = self.find()
 
         for element in elements:
