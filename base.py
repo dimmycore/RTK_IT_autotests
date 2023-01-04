@@ -118,7 +118,7 @@ class WebPage(object):
             pass
 
         while not page_loaded:
-            time.sleep(0.5)
+            time.sleep(1)
             k += 1
 
             if check_js_complete:
