@@ -196,40 +196,40 @@ def test_auth_vk(selenium):
     assert page.get_base_url() == 'oauth.vk.com'
 
 
+# тест 17 - проверка перехода по ссылке авторизации пользователя через сайт одноклассники
 def test_auth_ok(selenium):
-    #Проверка перехода по ссылке авторизации пользователя через сайт одноклассники
     page = AuthPage(selenium)
     page.ok_button.click()
 
     assert page.get_base_url() == 'connect.ok.ru'
 
 
+# тест 18 - проверка перехода по ссылке авторизации пользователя через сайт Мой мир
 def test_auth_moymir(selenium):
-    #Проверка перехода по ссылке авторизации пользователя через сайт Мой мир
     page = AuthPage(selenium)
     page.mailru_button.click()
 
     assert page.get_base_url() == 'connect.mail.ru'
 
-
+    
+# тест 19 - проверка перехода по ссылке авторизации пользователя через Google
 def test_auth_google(selenium):
-    #Проверка перехода по ссылке авторизации пользователя через Google
     page = AuthPage(selenium)
     page.google_button.click()
 
     assert page.get_base_url() == 'accounts.google.com'
 
 
+# тест 20 - проверка перехода по ссылке авторизации пользователя через Yandex
 def test_auth_yandex(selenium):
-    #Проверка перехода по ссылке авторизации пользователя через Yandex
     page = AuthPage(selenium)
     page.ya_button.click()
 
     assert page.get_base_url() == 'passport.yandex.ru'
 
 
+# тест 21 - проверка открытия ссылок, ведущих на страницу пользовательского соглашения
 def test_agreement(selenium):
-    #Проверка открытия ссылок, ведущих на страницу пользовательского соглашения
     page = AuthPage(selenium)
     original_window = page.driver.current_window_handle
     page.find_el(*link_user_agreement_auth_form).click()
