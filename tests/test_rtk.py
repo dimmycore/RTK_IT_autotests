@@ -129,24 +129,24 @@ def test_placeholder(selenium):
     assert page.placeholder.text == 'Логин'
 
 
+# тест 11 - проверка перехода по ссылке "Забыл пароль"
 def test_forget_password(selenium):
-    #Проверка перехода по ссылке "Забыл пароль"
     page = AuthPage(selenium)
     page.forget_password_link.click()
 
     assert page.find_el(*res_pass_text).text == 'Восстановление пароля'
 
 
+# тест 12 - проверка перехода по ссылке "Зарегистрироваться"
 def test_registration(selenium):
-    #Проверка перехода по ссылке "Зарегистрироваться"
     page = AuthPage(selenium)
     page.registration_link.click()
 
     assert page.find_el(*reg_page_text).text == 'Регистрация'
 
 
+# тест 13 - открытие и авторизация в чате, проверка получения приветственного сообщения в чате
 def test_chat(selenium):
-    #Открытие и авторизация в чате, проверка получения приветственного сообщения в чате
     page = AuthPage(selenium)
     page.find_el(*widget_bar).click()
     page.find_el(*username_chat).send_keys('Евгений')
@@ -155,8 +155,9 @@ def test_chat(selenium):
 
     assert WebDriverWait(page.driver, 5).until(EC.text_to_be_present_in_element(chat_message, chat_fmessage))
 
+  
+# тест 14 - открытие чата в Viber
 def test_chat_viber(selenium):
-    #Открытие чата в Viber
     page = AuthPage(selenium)
     chat_vb = page.find_el(*widget_bar)
     original_window = page.driver.current_window_handle
@@ -170,8 +171,9 @@ def test_chat_viber(selenium):
             break
     assert page.get_base_url() == 'chats.viber.com'
 
+  
+# тест 15 - открытие чата в Telegram
 def test_chat_telegram(selenium):
-    #Открытие чата в Telegram
     page = AuthPage(selenium)
     chat_tg = page.find_el(*widget_bar)
     original_window = page.driver.current_window_handle
@@ -185,8 +187,9 @@ def test_chat_telegram(selenium):
             break
     assert page.get_base_url() == 'telegram.me'
 
+    
+# тест 16 - проверка перехода по ссылке авторизации пользователя через VK    
 def test_auth_vk(selenium):
-    #Проверка перехода по ссылке авторизации пользователя через VK
     page = AuthPage(selenium)
     page.vk_button.click()
 
