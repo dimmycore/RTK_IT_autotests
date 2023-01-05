@@ -3,7 +3,7 @@ class AuthEmail:
     password = 'abc12345'
 
 class AuthPhone:
-    phone = '9021383091'
+    phone = '9021384091'
     password = 'abc12345'
 
 class AuthLogin:
